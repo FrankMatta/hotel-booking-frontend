@@ -1,32 +1,30 @@
-<form [formGroup]="guestDetails" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="guestDetails"
+  (ngSubmit)="onSubmit()"
+  #guestDetailsFormDirective="ngForm"
+>
   <!-- first name -->
   <div class="form-field">
     <mat-form-field appearance="fill">
       <mat-label>First name</mat-label>
       <input
+        type="text"
         matInput
         maxlength="50"
         placeholder="John"
-        [formControl]="guestDetails.controls['firstName']"
+        formControlName="firstName"
+        [errorStateMatcher]="matcher"
       />
-    </mat-form-field>
-    <div
-      *ngIf="
-        guestDetails.controls['firstName'].invalid &&
-        (guestDetails.controls['firstName'].touched ||
-          guestDetails.controls['firstName'].dirty)
-      "
-    >
-      <mat-error *ngIf="guestDetails.controls['firstName'].errors!['required']"
+      <mat-error *ngIf="firstName!.errors?.['required']"
         >First name is required</mat-error
       >
-      <mat-error *ngIf="guestDetails.controls['firstName'].errors!['minlength']"
+      <mat-error *ngIf="firstName!.errors?.['minlength']"
         >First name too short</mat-error
       >
-      <mat-error *ngIf="guestDetails.controls['firstName'].errors!['maxlength']"
+      <mat-error *ngIf="firstName!.errors?.['maxlength']"
         >First name too long</mat-error
       >
-    </div>
+    </mat-form-field>
   </div>
 
   <!-- last name -->
@@ -37,26 +35,19 @@
         matInput
         maxlength="50"
         placeholder="Doe"
-        [formControl]="guestDetails.controls['lastName']"
+        [errorStateMatcher]="matcher"
+        formControlName="lastName"
       />
-    </mat-form-field>
-    <div
-      *ngIf="
-        guestDetails.controls['lastName'].invalid &&
-        (guestDetails.controls['lastName'].touched ||
-          guestDetails.controls['lastName'].dirty)
-      "
-    >
-      <mat-error *ngIf="guestDetails.controls['lastName'].errors!['required']"
+      <mat-error *ngIf="lastName!.errors?.['required']"
         >Last name is required</mat-error
       >
-      <mat-error *ngIf="guestDetails.controls['lastName'].errors!['minlength']"
+      <mat-error *ngIf="lastName!.errors?.['minlength']"
         >Last name too short</mat-error
       >
-      <mat-error *ngIf="guestDetails.controls['lastName'].errors!['maxlength']"
+      <mat-error *ngIf="lastName!.errors?.['maxlength']"
         >Last name too long</mat-error
       >
-    </div>
+    </mat-form-field>
   </div>
 
   <!-- city -->
@@ -67,56 +58,82 @@
         matInput
         maxlength="50"
         placeholder="New York"
-        [formControl]="guestDetails.controls['city']"
+        formControlName="city"
+        [errorStateMatcher]="matcher"
       />
+      <mat-error *ngIf="city!.errors?.['required']"
+        >City name is required</mat-error
+      >
+      <mat-error *ngIf="city!.errors?.['minlength']"
+        >City name too short</mat-error
+      >
+      <mat-error *ngIf="city!.errors?.['maxlength']"
+        >City name too long</mat-error
+      >
     </mat-form-field>
-    <div
-      *ngIf="
-        guestDetails.controls['city'].invalid &&
-        (guestDetails.controls['city'].touched ||
-          guestDetails.controls['city'].dirty)
-      "
-    >
-      <mat-error *ngIf="guestDetails.controls['city'].errors!['required']"
-        >City is required</mat-error
-      >
-      <mat-error *ngIf="guestDetails.controls['city'].errors!['minlength']"
-        >City too short</mat-error
-      >
-      <mat-error *ngIf="guestDetails.controls['city'].errors!['maxlength']"
-        >City too long</mat-error
-      >
-    </div>
   </div>
 
   <!-- country -->
   <div class="form-field">
     <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Country</mat-label>
-        <mat-label>Select</mat-label>
-        <mat-select [formControl]="guestDetails.controls['country']">
-          <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    <div
-      *ngIf="
-        guestDetails.controls['country'].invalid &&
-        (guestDetails.controls['country'].touched ||
-          guestDetails.controls['country'].dirty)
-      "
-    >
-      <mat-error *ngIf="guestDetails.controls['country'].errors!['required']"
+      <mat-label>Country</mat-label>
+      <mat-label>Select</mat-label>
+      <mat-select formControlName="country" [errorStateMatcher]="matcher">
+        <mat-option *ngFor="let country of countries" [value]="country.name">{{
+          country.name
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="country!.errors?.['required']"
         >Country is required</mat-error
       >
-    </div>
+    </mat-form-field>
   </div>
 
-  <!-- passport details -->
-  <mat-label>Favorite food</mat-label>
+    <!-- email -->
+    <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>E-mail</mat-label>
+          <input
+            matInput
+            maxlength="50"
+            placeholder="johndoe@gmail.com"
+            formControlName="email"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error *ngIf="email!.errors?.['required']"
+            >E-mail name is required</mat-error
+          >
+          <mat-error *ngIf="email!.errors?.['email']"
+            >Enter a valid E-mail address</mat-error
+          >
+        </mat-form-field>
+      </div>
 
+
+        <!-- date of birth -->
+    <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>E-mail</mat-label>
+          <input
+            matInput
+            maxlength="50"
+            placeholder="johndoe@gmail.com"
+            formControlName="email"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error *ngIf="email!.errors?.['required']"
+            >E-mail name is required</mat-error
+          >
+          <mat-error *ngIf="email!.errors?.['email']"
+            >Enter a valid E-mail address</mat-error
+          >
+        </mat-form-field>
+      </div>
+
+
+  <!-- passport details -->
 
   <button type="submit" mat-raised-button color="primary">Submit</button>
-
 </form>
 
 <!-- irst name, last name, city, country, email address, date of birth, and passport details. -->
