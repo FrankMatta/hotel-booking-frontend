@@ -5,7 +5,7 @@
 >
   <!-- first name -->
   <div class="form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>First name</mat-label>
       <input
         type="text"
@@ -15,6 +15,8 @@
         formControlName="firstName"
         [errorStateMatcher]="matcher"
       />
+
+      <!-- first name errors -->
       <mat-error *ngIf="firstName!.errors?.['required']"
         >First name is required</mat-error
       >
@@ -29,7 +31,7 @@
 
   <!-- last name -->
   <div class="form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Last name</mat-label>
       <input
         matInput
@@ -38,6 +40,7 @@
         [errorStateMatcher]="matcher"
         formControlName="lastName"
       />
+      <!-- last name errors -->
       <mat-error *ngIf="lastName!.errors?.['required']"
         >Last name is required</mat-error
       >
@@ -52,7 +55,7 @@
 
   <!-- city -->
   <div class="form-field">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>City</mat-label>
       <input
         matInput
@@ -61,6 +64,8 @@
         formControlName="city"
         [errorStateMatcher]="matcher"
       />
+
+      <!-- city errors -->
       <mat-error *ngIf="city!.errors?.['required']"
         >City name is required</mat-error
       >
@@ -75,7 +80,7 @@
 
   <!-- country -->
   <div class="form-field">
-    <mat-form-field class="example-full-width" appearance="fill">
+    <mat-form-field class="example-full-width" appearance="outline">
       <mat-label>Country</mat-label>
       <mat-label>Select</mat-label>
       <mat-select formControlName="country" [errorStateMatcher]="matcher">
@@ -83,55 +88,183 @@
           country.name
         }}</mat-option>
       </mat-select>
+      <!-- country errors -->
       <mat-error *ngIf="country!.errors?.['required']"
         >Country is required</mat-error
       >
     </mat-form-field>
   </div>
 
-    <!-- email -->
-    <div class="form-field">
-        <mat-form-field appearance="fill">
-          <mat-label>E-mail</mat-label>
-          <input
-            matInput
-            maxlength="50"
-            placeholder="johndoe@gmail.com"
-            formControlName="email"
-            [errorStateMatcher]="matcher"
-          />
-          <mat-error *ngIf="email!.errors?.['required']"
-            >E-mail name is required</mat-error
-          >
-          <mat-error *ngIf="email!.errors?.['email']"
-            >Enter a valid E-mail address</mat-error
-          >
-        </mat-form-field>
-      </div>
+  <!-- email -->
+  <div class="form-field">
+    <mat-form-field appearance="outline">
+      <mat-label>E-mail</mat-label>
+      <input
+        matInput
+        maxlength="50"
+        placeholder="johndoe@gmail.com"
+        formControlName="email"
+        [errorStateMatcher]="matcher"
+      />
+      <!-- email errors -->
+      <mat-error *ngIf="email!.errors?.['required']"
+        >E-mail name is required</mat-error
+      >
+      <mat-error *ngIf="email!.errors?.['email']"
+        >Enter a valid E-mail address</mat-error
+      >
+    </mat-form-field>
+  </div>
 
+  <!-- date of birth -->
+  <div class="form-field">
+    <mat-form-field appearance="outline">
+      <mat-label>Date Of Birth</mat-label>
+      <input
+        matInput
+        [min]="minDate"
+        [max]="maxDate"
+        [matDatepicker]="picker"
+        formControlName="dateOfBirth"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
 
-        <!-- date of birth -->
-    <div class="form-field">
-        <mat-form-field appearance="fill">
-          <mat-label>E-mail</mat-label>
-          <input
-            matInput
-            maxlength="50"
-            placeholder="johndoe@gmail.com"
-            formControlName="email"
-            [errorStateMatcher]="matcher"
-          />
-          <mat-error *ngIf="email!.errors?.['required']"
-            >E-mail name is required</mat-error
-          >
-          <mat-error *ngIf="email!.errors?.['email']"
-            >Enter a valid E-mail address</mat-error
-          >
-        </mat-form-field>
-      </div>
-
+      <!-- dob errors -->
+      <mat-error *ngIf="dateOfBirth!.errors?.['required']"
+        >Birth date is required</mat-error
+      >
+    </mat-form-field>
+  </div>
 
   <!-- passport details -->
+  <div formGroupName="passportDetails" class="form-group">
+    <!-- passport number -->
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Passport number</mat-label>
+        <input
+          type="text"
+          matInput
+          maxlength="9"
+          placeholder="573829246"
+          formControlName="passportNumber"
+          [errorStateMatcher]="matcher"
+        />
+
+        <!-- passport number errors -->
+        <mat-error *ngIf="passportNumber!.errors?.['required']"
+          >Passport number is required</mat-error
+        >
+        <mat-error *ngIf="passportNumber!.errors?.['minlength']"
+          >Passport number too short</mat-error
+        >
+        <mat-error *ngIf="passportNumber!.errors?.['maxlength']"
+          >Passport number name too long</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <!-- forename -->
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Forename</mat-label>
+        <input
+          type="text"
+          matInput
+          maxlength="50"
+          placeholder="John"
+          formControlName="foreName"
+          [errorStateMatcher]="matcher"
+        />
+
+        <!-- Forename errors -->
+        <mat-error *ngIf="foreName!.errors?.['required']"
+          >Forename is required</mat-error
+        >
+        <mat-error *ngIf="foreName!.errors?.['minlength']"
+          >Forenametoo short</mat-error
+        >
+        <mat-error *ngIf="foreName!.errors?.['maxlength']"
+          >Forename too long</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <!-- surname -->
+    <div class="form-field">
+      <mat-form-field appearance="outline">
+        <mat-label>Surname</mat-label>
+        <input
+          type="text"
+          matInput
+          maxlength="50"
+          placeholder="John"
+          formControlName="surName"
+          [errorStateMatcher]="matcher"
+        />
+
+        <!-- Surname errors -->
+        <mat-error *ngIf="surName!.errors?.['required']"
+          >Surname is required</mat-error
+        >
+        <mat-error *ngIf="surName!.errors?.['minlength']"
+          >Surname too short</mat-error
+        >
+        <mat-error *ngIf="surName!.errors?.['maxlength']"
+          >Surname too long</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <!-- issue date -->
+    <mat-form-field appearance="outline">
+      <mat-label>Issue date</mat-label>
+      <input
+        matInput
+        [min]="minDate"
+        [matDatepicker]="issueDatePicker"
+        formControlName="dateOfIssue"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="issueDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #issueDatePicker></mat-datepicker>
+
+      <!-- issue date errors -->
+      <mat-error *ngIf="dateOfIssue!.errors?.['required']"
+        >Issue date is required</mat-error
+      >
+    </mat-form-field>
+
+    <!-- expiry date -->
+    <mat-form-field appearance="outline">
+      <mat-label>Expiry date</mat-label>
+      <input
+        matInput
+        [min]="minDate"
+        [matDatepicker]="expiryDatePicker"
+        formControlName="dateOfExpiry"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="expiryDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #expiryDatePicker></mat-datepicker>
+
+      <!-- expiry errors -->
+      <mat-error *ngIf="dateOfExpiry!.errors?.['required']"
+        >Expiry date is required</mat-error
+      >
+    </mat-form-field>
+  </div>
 
   <button type="submit" mat-raised-button color="primary">Submit</button>
 </form>
