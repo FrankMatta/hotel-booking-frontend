@@ -3,6 +3,7 @@
   (ngSubmit)="onSubmit()"
   #guestDetailsFormDirective="ngForm"
 >
+<h1>Guest Details</h1>
   <!-- first name -->
   <div class="form-field">
     <mat-form-field appearance="outline">
@@ -142,6 +143,8 @@
   </div>
 
   <!-- passport details -->
+<h3>Passport Details</h3>
+
   <div formGroupName="passportDetails" class="form-group">
     <!-- passport number -->
     <div class="form-field">
@@ -266,7 +269,7 @@
     </mat-form-field>
   </div>
 
-  <button type="submit" mat-raised-button color="primary">Submit</button>
-</form>
+  <button
 
-<!-- irst name, last name, city, country, email address, date of birth, and passport details. -->
+    type="submit" mat-raised-button color="primary">Submit</button>
+</form>

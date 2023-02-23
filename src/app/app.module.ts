@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GuestDetailsComponent } from './guest-details/guest-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //Angular Material imports
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +16,8 @@ import {MatSelectModule} from '@angular/material/select'
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { BookRoomComponent } from './book-room/book-room.component';
 
 const Materials = [
   MatFormFieldModule,
@@ -23,13 +26,15 @@ const Materials = [
   MatSelectModule,
   MatButtonModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatSnackBarModule
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    GuestDetailsComponent
+    GuestDetailsComponent,
+    BookRoomComponent
   ],
   imports: [
     FormsModule,
@@ -37,6 +42,7 @@ const Materials = [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ...Materials
   ],
   providers: [],

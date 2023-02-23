@@ -9,6 +9,9 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import countriesList from '../../assets/countries.json';
+import { GuestDetails } from '../models/guest.model';
+import { GuestsHttpHelper } from '../services/guestsHttpHelper.service';
+import { UIService } from '../services/UI.service';
 interface Country {
   name: string;
   code: string;
@@ -41,7 +44,7 @@ export class GuestDetailsComponent {
     ],
     country: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    dateOfBirth: ['', [Validators.required]],
+    dateOfBirth: [null, [Validators.required]],
     passportDetails: this.formBuilder.group({
       passportNumber: [
         null,
@@ -116,7 +119,11 @@ export class GuestDetailsComponent {
     return this.passportDetails.get('dateOfExpiry');
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private guestsHttpHelper: GuestsHttpHelper,
+    private ui: UIService
+  ) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 100, 0, 1);
     this.maxDate = new Date(currentYear - 18, 11, 31);
@@ -127,6 +134,29 @@ export class GuestDetailsComponent {
     console.log(
       this.guestDetails.get('passportDetails')?.get('passportNumber')?.errors
     );
+    const guestDetails: GuestDetails = {
+      firstName: this.firstName!.value ?? '',
+      lastName: this.lastName!.value ?? '',
+      email: this.email!.value ?? '',
+      country: this.country!.value ?? '',
+      city: this.city!.value ?? '',
+      dateOfBirth: this.dateOfBirth!.value ?? new Date(),
+      passportDetails: {
+        foreName: this.foreName!.value ?? '',
+        surName: this.surName!.value ?? '',
+        passportNumber: this.passportNumber!.value ?? '',
+        dateOfIssue: this.dateOfIssue!.value ?? new Date(),
+        dateOfExpiry: this.dateOfExpiry!.value ?? new Date(),
+      }
+      
+    };
+    this.guestsHttpHelper
+      .saveGuestDetails(guestDetails)
+      .subscribe({
+        next: (v) => this.ui.openSnackbar('Guest added successully! Redirecting...'),
+        error: (e) => this.ui.openSnackbar("Something went wrong, try again later"),
+        complete: () => console.info('complete') 
+    })
   }
 }
 
