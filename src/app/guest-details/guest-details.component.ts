@@ -148,7 +148,6 @@ export class GuestDetailsComponent {
         dateOfIssue: this.dateOfIssue!.value ?? new Date(),
         dateOfExpiry: this.dateOfExpiry!.value ?? new Date(),
       }
-      
     };
     this.guestsHttpHelper
       .saveGuestDetails(guestDetails)
