@@ -4,12 +4,13 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 3rem 1rem
-
+    padding: 3rem 1rem;
 }
 .container {
+    display: flex;
+    justify-content: center;
     max-width: 960px;
-    width: 960px;
+    width: 100%
 }
 form {
     display: grid;
@@ -22,9 +23,13 @@ form {
     "passportDetails passportDetails"
     "submitBtn submitBtn";
     gap: 20px;
+
+    div {
+        text-align: center;
+    }
+    
     & ::ng-deep mat-form-field {
         width: 100%;
-
     }
 
     & .firstName {
@@ -61,5 +66,25 @@ form {
         & button {
             width: 50%;
         }
+    }
+}
+
+@media (max-width: 1000px){
+    form {
+        width: 70%;
+    }
+}
+
+@media (max-width: 700px){
+    form {
+        grid-template-areas: 
+        "firstName"
+        "lastName"
+        "country"
+        "city"
+        "email"
+        "dob"
+        "passportDetails"
+        "submitBtn";
     }
 }
