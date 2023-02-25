@@ -1,0 +1,65 @@
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 3rem 1rem
+
+}
+.container {
+    max-width: 960px;
+    width: 960px;
+}
+form {
+    display: grid;
+    width: 100%;
+    grid-template-areas: 
+    "firstName lastName"
+    "country city"
+    "email email"
+    "dob dob"
+    "passportDetails passportDetails"
+    "submitBtn submitBtn";
+    gap: 20px;
+    & ::ng-deep mat-form-field {
+        width: 100%;
+
+    }
+
+    & .firstName {
+        grid-area: firstName;
+    }
+
+    & .lastName {
+        grid-area: lastName;
+    }
+
+    & .country {
+        grid-area: country;
+    }
+
+    & .city {
+        grid-area: city;
+    }
+
+    & .email {
+        grid-area: email;
+    }
+
+    & .dob {
+        grid-area: dob;
+    }
+
+    & #passportDetails {
+        grid-area: passportDetails;
+    }
+
+    & .submitBtn {
+        grid-area: submitBtn;
+        text-align: center;
+        & button {
+            width: 50%;
+        }
+    }
+}
