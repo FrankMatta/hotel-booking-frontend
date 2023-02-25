@@ -9,7 +9,6 @@
 </button>
 <div id="dropdowns" *ngIf="buttonClicked">
   <form [formGroup]="bookingDetails" (ngSubmit)="onSubmit()">
-
     <!-- person select -->
     <mat-form-field appearance="outline">
       <mat-label>Select</mat-label>
@@ -27,6 +26,7 @@
       </mat-select>
     </mat-form-field>
     <button
+      type="button"
       mat-raised-button
       color="accent"
       (click)="addGuest()"
@@ -36,6 +36,7 @@
     </button>
     <h4>Selected Adults {{ bookedGuests.adultsCount }}</h4>
     <button
+      type="button"
       mat-raised-button
       color="warn"
       (click)="removeAdult()"
@@ -45,6 +46,7 @@
     </button>
     <h4>Selected Children {{ bookedGuests.childrenCount }}</h4>
     <button
+      type="button"
       mat-raised-button
       color="warn"
       (click)="removeChild()"
@@ -90,41 +92,60 @@
         <mat-error *ngIf="price!.errors?.['required']"
           >Price is required</mat-error
         >
-        <mat-error *ngIf="price!.errors?.['min']"
-        >Price too low</mat-error
-      >
-      <mat-error *ngIf="price!.errors?.['max']"
-      >Price too high</mat-error
-    >
+        <mat-error *ngIf="price!.errors?.['min']">Price too low</mat-error>
+        <mat-error *ngIf="price!.errors?.['max']">Price too high</mat-error>
       </mat-form-field>
 
       <!-- per booking or per person -->
-        <mat-radio-group
-          formControlName="bookingPer"
-          aria-label="Select an option"
-          value="booking"
+      <mat-radio-group
+        formControlName="bookingPer"
+        aria-label="Select an option"
+        value="booking"
+      >
+        <mat-radio-button selected value="booking"
+          >Per booking</mat-radio-button
         >
-          <mat-radio-button selected value="booking"
-            >Per booking</mat-radio-button
-          >
-          <mat-radio-button value="person">Per person</mat-radio-button>
-        </mat-radio-group>
+        <mat-radio-button value="person">Per person</mat-radio-button>
+      </mat-radio-group>
 
-        <!-- duration -->
-        <mat-form-field appearance="outline">
-          <mat-label>Enter a date range</mat-label>
-          <mat-date-range-input [rangePicker]="picker" [min]="minDate" [max]="maxDate">
-            <input matStartDate placeholder="Start date" formControlName="bookStartDate">
-            <input matEndDate placeholder="End date" formControlName="bookEndDate">
-          </mat-date-range-input>
-          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-          <mat-error *ngIf="bookStartDate!.errors?.['required'] || bookEndDate!.errors?.['required'] "
+      <!-- duration -->
+      <mat-form-field appearance="outline">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input
+          [rangePicker]="picker"
+          [min]="minDate"
+          [max]="maxDate"
+        >
+          <input
+            matStartDate
+            placeholder="Start date"
+            formControlName="bookStartDate"
+          />
+          <input
+            matEndDate
+            placeholder="End date"
+            formControlName="bookEndDate"
+          />
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error
+          *ngIf="bookStartDate!.errors?.['required'] || bookEndDate!.errors?.['required'] "
           >Start and end date are required</mat-error
         >
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!bookingDetails.valid">Book room</button>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!bookingDetails.valid"
+      >
+        Book room
+      </button>
     </div>
   </form>
 </div>
