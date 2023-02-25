@@ -1,3 +1,7 @@
+<!-- <div class="spinner" *ngIf="loading; else guestDetailsForm">
+    <mat-spinner></mat-spinner>
+  </div> -->
+<!-- <ng-template #guestDetailsForm> -->
 <main>
   <h1>Guest Details</h1>
   <div class="container">
@@ -146,136 +150,134 @@
       </div>
 
       <!-- passport details -->
-      <div id="passportDetails">
+      <div id="passportDetails" formGroupName="passportDetails">
         <h3>Passport Details</h3>
 
-        <div formGroupName="passportDetails" class="form-group">
-          <!-- passport number -->
-          <div class="form-field passportNumber">
-            <mat-form-field appearance="outline">
-              <mat-label>Passport number</mat-label>
-              <input
-                type="text"
-                matInput
-                maxlength="9"
-                placeholder="573829246"
-                formControlName="passportNumber"
-                [errorStateMatcher]="matcher"
-              />
-
-              <!-- passport number errors -->
-              <mat-error *ngIf="passportNumber!.errors?.['required']"
-                >Passport number is required</mat-error
-              >
-              <mat-error *ngIf="passportNumber!.errors?.['minlength']"
-                >Passport number too short</mat-error
-              >
-              <mat-error *ngIf="passportNumber!.errors?.['maxlength']"
-                >Passport number name too long</mat-error
-              >
-            </mat-form-field>
-          </div>
-
-          <!-- forename -->
-          <div class="form-field forename">
-            <mat-form-field appearance="outline">
-              <mat-label>Forename</mat-label>
-              <input
-                type="text"
-                matInput
-                maxlength="50"
-                placeholder="John"
-                formControlName="foreName"
-                [errorStateMatcher]="matcher"
-              />
-
-              <!-- Forename errors -->
-              <mat-error *ngIf="foreName!.errors?.['required']"
-                >Forename is required</mat-error
-              >
-              <mat-error *ngIf="foreName!.errors?.['minlength']"
-                >Forenametoo short</mat-error
-              >
-              <mat-error *ngIf="foreName!.errors?.['maxlength']"
-                >Forename too long</mat-error
-              >
-            </mat-form-field>
-          </div>
-
-          <!-- surname -->
-          <div class="form-field surname">
-            <mat-form-field appearance="outline">
-              <mat-label>Surname</mat-label>
-              <input
-                type="text"
-                matInput
-                maxlength="50"
-                placeholder="John"
-                formControlName="surName"
-                [errorStateMatcher]="matcher"
-              />
-
-              <!-- Surname errors -->
-              <mat-error *ngIf="surName!.errors?.['required']"
-                >Surname is required</mat-error
-              >
-              <mat-error *ngIf="surName!.errors?.['minlength']"
-                >Surname too short</mat-error
-              >
-              <mat-error *ngIf="surName!.errors?.['maxlength']"
-                >Surname too long</mat-error
-              >
-            </mat-form-field>
-          </div>
-
-          <!-- issue date -->
-          <mat-form-field appearance="outline" class="issueDate">
-            <mat-label>Issue date</mat-label>
+        <!-- passport number -->
+        <div class="form-field passportNumber">
+          <mat-form-field appearance="outline">
+            <mat-label>Passport number</mat-label>
             <input
+              type="text"
               matInput
-              [min]="minDate"
-              [matDatepicker]="issueDatePicker"
-              formControlName="dateOfIssue"
+              maxlength="9"
+              placeholder="573829246"
+              formControlName="passportNumber"
+              [errorStateMatcher]="matcher"
             />
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="issueDatePicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #issueDatePicker></mat-datepicker>
 
-            <!-- issue date errors -->
-            <mat-error *ngIf="dateOfIssue!.errors?.['required']"
-              >Issue date is required</mat-error
+            <!-- passport number errors -->
+            <mat-error *ngIf="passportNumber!.errors?.['required']"
+              >Passport number is required</mat-error
             >
-          </mat-form-field>
-
-          <!-- expiry date -->
-          <mat-form-field appearance="outline" class="expiryDate">
-            <mat-label>Expiry date</mat-label>
-            <input
-              matInput
-              [min]="minDate"
-              [matDatepicker]="expiryDatePicker"
-              formControlName="dateOfExpiry"
-            />
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="expiryDatePicker"
-            ></mat-datepicker-toggle>
-            <mat-datepicker #expiryDatePicker></mat-datepicker>
-
-            <!-- expiry errors -->
-            <mat-error *ngIf="dateOfExpiry!.errors?.['required']"
-              >Expiry date is required</mat-error
+            <mat-error *ngIf="passportNumber!.errors?.['minlength']"
+              >Passport number too short</mat-error
+            >
+            <mat-error *ngIf="passportNumber!.errors?.['maxlength']"
+              >Passport number name too long</mat-error
             >
           </mat-form-field>
         </div>
+
+        <!-- forename -->
+        <div class="form-field forename">
+          <mat-form-field appearance="outline">
+            <mat-label>Forename</mat-label>
+            <input
+              type="text"
+              matInput
+              maxlength="50"
+              placeholder="John"
+              formControlName="foreName"
+              [errorStateMatcher]="matcher"
+            />
+
+            <!-- Forename errors -->
+            <mat-error *ngIf="foreName!.errors?.['required']"
+              >Forename is required</mat-error
+            >
+            <mat-error *ngIf="foreName!.errors?.['minlength']"
+              >Forenametoo short</mat-error
+            >
+            <mat-error *ngIf="foreName!.errors?.['maxlength']"
+              >Forename too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <!-- surname -->
+        <div class="form-field surname">
+          <mat-form-field appearance="outline">
+            <mat-label>Surname</mat-label>
+            <input
+              type="text"
+              matInput
+              maxlength="50"
+              placeholder="John"
+              formControlName="surName"
+              [errorStateMatcher]="matcher"
+            />
+
+            <!-- Surname errors -->
+            <mat-error *ngIf="surName!.errors?.['required']"
+              >Surname is required</mat-error
+            >
+            <mat-error *ngIf="surName!.errors?.['minlength']"
+              >Surname too short</mat-error
+            >
+            <mat-error *ngIf="surName!.errors?.['maxlength']"
+              >Surname too long</mat-error
+            >
+          </mat-form-field>
+        </div>
+
+        <!-- issue date -->
+        <mat-form-field appearance="outline" class="issueDate">
+          <mat-label>Issue date</mat-label>
+          <input
+            matInput
+            [min]="minDate"
+            [matDatepicker]="issueDatePicker"
+            formControlName="dateOfIssue"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="issueDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #issueDatePicker></mat-datepicker>
+
+          <!-- issue date errors -->
+          <mat-error *ngIf="dateOfIssue!.errors?.['required']"
+            >Issue date is required</mat-error
+          >
+        </mat-form-field>
+
+        <!-- expiry date -->
+        <mat-form-field appearance="outline" class="expiryDate">
+          <mat-label>Expiry date</mat-label>
+          <input
+            matInput
+            [min]="minDate"
+            [matDatepicker]="expiryDatePicker"
+            formControlName="dateOfExpiry"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="expiryDatePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #expiryDatePicker></mat-datepicker>
+
+          <!-- expiry errors -->
+          <mat-error *ngIf="dateOfExpiry!.errors?.['required']"
+            >Expiry date is required</mat-error
+          >
+        </mat-form-field>
       </div>
       <div class="submitBtn">
         <button
-        [disabled]="!guestDetails.valid"
+          [disabled]="!guestDetails.valid"
           type="submit"
           class="submitBtn"
           mat-raised-button
@@ -287,3 +289,4 @@
     </form>
   </div>
 </main>
+<!-- </ng-template> -->

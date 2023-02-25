@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   FormBuilder,
   Validators,
@@ -20,9 +20,11 @@ interface Country {
 @Component({
   selector: 'app-guest-details',
   templateUrl: './guest-details.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./guest-details.component.scss'],
 })
 export class GuestDetailsComponent {
+  loading = false;
   countries: Country[] = countriesList;
   matcher = new MyErrorStateMatcher();
   minDate: Date;
@@ -130,10 +132,8 @@ export class GuestDetailsComponent {
   }
 
   onSubmit() {
-    console.log(this.guestDetails.value);
-    console.log(
-      this.guestDetails.get('passportDetails')?.get('passportNumber')?.errors
-    );
+    this.loading = true;
+
     const guestDetails: GuestDetails = {
       firstName: this.firstName!.value ?? '',
       lastName: this.lastName!.value ?? '',
@@ -149,13 +149,16 @@ export class GuestDetailsComponent {
         dateOfExpiry: this.dateOfExpiry!.value ?? new Date(),
       }
     };
-    this.guestsHttpHelper
-      .saveGuestDetails(guestDetails)
-      .subscribe({
-        next: (v) => this.ui.openSnackbar('Guest added successully! Redirecting...'),
-        error: (e) => this.ui.openSnackbar("Something went wrong, try again later"),
-        complete: () => console.info('complete') 
-    })
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000)
+    // this.guestsHttpHelper
+    //   .saveGuestDetails(guestDetails)
+    //   .subscribe({
+    //     next: (v) => this.ui.openSnackbar('Guest added successully! Redirecting...'),
+    //     error: (e) => this.ui.openSnackbar("Something went wrong, try again later"),
+    //     complete: () => console.info('complete') 
+    // })
   }
 }
 

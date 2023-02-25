@@ -1,90 +1,78 @@
 main {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.container {
-    display: flex;
-    justify-content: center;
-    max-width: 960px;
-    width: 100%
-}
+
 form {
-    display: grid;
-    width: 100%;
-    grid-template-areas: 
+  display: grid;
+  grid-template-areas:
     "firstName lastName"
     "country city"
     "email email"
     "dob dob"
     "passportDetails passportDetails"
     "submitBtn submitBtn";
-    gap: 20px;
+  gap: 20px;
 
-    div {
-        text-align: center;
-    }
-    
-    & ::ng-deep mat-form-field {
-        width: 100%;
-    }
+  & .firstName {
+    grid-area: firstName;
+  }
 
-    & .firstName {
-        grid-area: firstName;
-    }
+  & .lastName {
+    grid-area: lastName;
+  }
 
-    & .lastName {
-        grid-area: lastName;
-    }
+  & .country {
+    grid-area: country;
+  }
 
-    & .country {
-        grid-area: country;
-    }
+  & .city {
+    grid-area: city;
+  }
 
-    & .city {
-        grid-area: city;
-    }
+  & .email {
+    grid-area: email;
+  }
 
-    & .email {
-        grid-area: email;
-    }
+  & .dob {
+    grid-area: dob;
+  }
 
-    & .dob {
-        grid-area: dob;
+  & #passportDetails {
+    grid-area: passportDetails;
+    display: grid;
+  }
+
+  & .submitBtn {
+    grid-area: submitBtn;
+    text-align: center;
+    & button {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  form {
+    grid-template-areas:
+      "firstName"
+      "lastName"
+      "country"
+      "city"
+      "email"
+      "dob"
+      "passportDetails"
+      "submitBtn";
+    place-items: center;
+
+    & .form-field {
+      width: 100%;
     }
 
     & #passportDetails {
-        grid-area: passportDetails;
+      place-items: center;
     }
-
-    & .submitBtn {
-        grid-area: submitBtn;
-        text-align: center;
-        & button {
-            width: 50%;
-        }
-    }
-}
-
-@media (max-width: 1000px){
-    form {
-        width: 70%;
-    }
-}
-
-@media (max-width: 700px){
-    form {
-        grid-template-areas: 
-        "firstName"
-        "lastName"
-        "country"
-        "city"
-        "email"
-        "dob"
-        "passportDetails"
-        "submitBtn";
-    }
+  }
 }
