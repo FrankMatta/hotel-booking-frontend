@@ -1,0 +1,50 @@
+
+#invoice {
+    width: 100%;
+
+    & .container {
+        max-width: 960px;
+        text-align: center;
+        margin: 50px auto;
+        background: rgb(227, 227, 227);
+        border-radius: 20px;
+        padding: 3rem 1rem;
+
+    }
+
+    & header {
+        & .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+        }
+    }
+
+    & main {
+        text-align: left;
+        margin-top: 50px;
+
+        & table {
+            width: 100%;
+            font-size: 1.5rem;
+            padding: 1rem;
+            border-collapse: collapse; 
+
+
+            & thead, tfoot, th, td {
+                padding: 1rem;
+            }
+
+            & thead, tfoot, tr {
+                border-bottom: 1px solid black;
+            }
+
+            & tfoot {
+                & tr td{
+                    margin-left: -50px
+                }
+            }
+        }
+    }
+}

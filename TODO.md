@@ -12,3 +12,6 @@
 5- Discount Feature: A dropdown field should be created that automatically detects if the guest stay is 4 or more days. If the guest stay is during High Season (1 Jun to 31 Oct and 21 Dec to 10 Jan), a 10% discount should be applied to the total booking cost. This calculation should be reflected on the generated invoice.
 
 Overall, this task involves creating a comprehensive booking system with features such as guest details form, room selection, extras, discounts, and invoice generation.
+
+
+Modify email api to include all guest information in the email

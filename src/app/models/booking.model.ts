@@ -13,4 +13,18 @@ export enum BookingPer {
     childrenCount: number;
   }
   
-  
+  export interface InvoiceDetails {
+    adultsCount: number;
+    appliedDiscount: number;
+    bookEndDate: Date;
+    bookStartDate: Date;
+    bookingId: number;
+    bookingPer: BookingPer,
+    childrenCount: number;
+    createdAt: Date;
+    description: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    price: number;
+  }

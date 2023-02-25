@@ -18,9 +18,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 import { BookRoomComponent } from './book-room/book-room.component';
+import { InvoiceComponent } from './invoice/invoice.component';
 
 const Materials = [
   MatFormFieldModule,
@@ -31,14 +33,16 @@ const Materials = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatSnackBarModule,
-  MatRadioModule
+  MatRadioModule,
+  MatProgressSpinnerModule
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
     GuestDetailsComponent,
-    BookRoomComponent
+    BookRoomComponent,
+    InvoiceComponent
   ],
   imports: [
     FormsModule,

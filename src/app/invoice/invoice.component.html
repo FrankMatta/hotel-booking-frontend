@@ -1,0 +1,73 @@
+<ng-template *ngIf="loading"></ng-template>
+<ng-container *ngIf="loading; else invoice">
+  <div class="flex justify-center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-container>
+<ng-template #invoice>
+    <div id="invoice">
+        <div class="container">
+  <header>
+    <div class="content">
+    <div class="logo">
+      <i class="fa-solid fa-hotel" style="font-size: 40px; color: #ff0000"></i>
+      <p>
+        Hello, {{ invoiceDetails.firstName }} {{ invoiceDetails.lastName }}
+        <br />
+        Thank you for booking with us!
+      </p>
+    </div>
+    <div class="booking-id">
+      <small>ORDER</small> #{{ invoiceDetails.bookingId }}<br />
+      <small>{{ invoiceDetails.createdAt | date : "short" }}</small>
+    </div>
+</div>
+  </header>
+  <main>
+    <h4>Booking price calculated per: <strong>{{ invoiceDetails.bookingPer }}</strong></h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Person</th>
+          <th>Count</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Adults</td>
+          <td>{{ invoiceDetails.adultsCount }}</td>
+          <td *ngIf="invoiceDetails.bookingPer == 'person'">
+            {{ invoiceDetails.price }}$
+          </td>
+          <td *ngIf="invoiceDetails.bookingPer != 'person'">0</td>
+        </tr>
+        <tr *ngIf="invoiceDetails.childrenCount > 0">
+          <td>Children</td>
+          <td>{{ invoiceDetails.childrenCount }}</td>
+          <td *ngIf="invoiceDetails.bookingPer == 'person'">
+            {{ invoiceDetails.price }}$
+          </td>
+          <td *ngIf="invoiceDetails.bookingPer != 'person'">0$</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td *ngIf="invoiceDetails.appliedDiscount > 0" colspan="2">
+            High season discount: {{ invoiceDetails.appliedDiscount }}%
+          </td>
+          <td></td>
+          <td *ngIf="!invoiceDetails.appliedDiscount">Discount: </td>
+          <td *ngIf="!invoiceDetails.appliedDiscount">0%</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Total</td>
+            <td>{{ invoiceTotal }}$</td>
+        </tr>
+      </tfoot>
+    </table>
+  </main>
+</div>
+</div>
+</ng-template>
