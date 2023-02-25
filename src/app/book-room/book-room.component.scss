@@ -1,0 +1,6 @@
+input.price {
+    text-align: right;
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+        display: none;
+    }
+}

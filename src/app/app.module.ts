@@ -16,7 +16,10 @@ import {MatSelectModule} from '@angular/material/select'
 import {MatButtonModule} from '@angular/material/button';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio';
+
+
 import { BookRoomComponent } from './book-room/book-room.component';
 
 const Materials = [
@@ -27,7 +30,8 @@ const Materials = [
   MatButtonModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatRadioModule
 ]
 
 @NgModule({

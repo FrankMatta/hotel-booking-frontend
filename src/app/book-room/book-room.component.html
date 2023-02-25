@@ -1,0 +1,79 @@
+<h1>Book a room</h1>
+<button type="button" mat-raised-button color="primary" (click)="toggleDropdowns()">
+  Select room
+</button>
+<div id="dropdowns" *ngIf="buttonClicked">
+  <form [formGroup]="bookingDetails">
+    <mat-form-field appearance="outline">
+      <mat-label>Select</mat-label>
+      <mat-select formControlName="guest" name="guests" id="guests">
+        <mat-option value="adult">Adults</mat-option>
+        <mat-option value="child">Children</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="count" name="guestCount" id="guestCount">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="addGuest()"
+      [disabled]="bookedGuests.adultsCount + bookedGuests.childrenCount >= 3"
+    >
+      Add
+    </button>
+    <h4>Selected Adults {{ bookedGuests.adultsCount }}</h4>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="removeAdult()"
+      [disabled]="bookedGuests.adultsCount <= 1"
+    >
+      Remove Adult
+    </button>
+    <h4>Selected Children {{ bookedGuests.childrenCount }}</h4>
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="removeChild()"
+      [disabled]="bookedGuests.childrenCount <= 0"
+    >
+      Remove Child
+    </button>
+    <button
+    type="button"
+    mat-raised-button
+    color="primary"
+    (click)="enableExtras()"
+  >
+    Extra
+  </button>
+    <div class="extras" *ngIf="extrasClicked">
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Booking description"></textarea>
+        <mat-error *ngIf="description!.errors?.['required']"
+        >Description is required</mat-error
+      >
+      </mat-form-field>
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price" class="price" placeholder="0">
+        <span matTextPrefix>$&nbsp;</span>
+        <span matTextSuffix>.00</span>
+        <mat-error *ngIf="price!.errors?.['required']"
+        >Price is required</mat-error
+      >
+      </mat-form-field>
+      <mat-radio-group formControlName="bookingPer" aria-label="Select an option" value="booking">
+        <mat-radio-button selected value="booking">Per booking</mat-radio-button>
+        <mat-radio-button value="person">Per person</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <button mat-raised-button color="primary" type="submit">Book room</button>
+  </form>
+</div>
+<!-- Add an extra button to show price, description, duration, per person or booking option -->
