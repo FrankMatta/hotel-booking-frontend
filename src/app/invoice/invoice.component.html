@@ -1,7 +1,10 @@
 <ng-template *ngIf="loading"></ng-template>
-<ng-container *ngIf="loading; else invoice">
-  <div class="flex justify-center">
+<ng-container *ngIf="loading || failed; else invoice">
+  <div class="flex justify-center" *ngIf="loading">
     <mat-spinner></mat-spinner>
+  </div>
+  <div class="flex justify-center" *ngIf="failed">
+    <h1>Something went wrong, try again</h1>
   </div>
 </ng-container>
 <ng-template #invoice>

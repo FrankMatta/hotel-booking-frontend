@@ -7,7 +7,6 @@ export class UIService {
 
     openSnackbar(message = 'Success!', action = 'Close', dismissAfter = 0) {
         this._snackBar.open(message, action);
-        console.log('dismissing')
         
         if (dismissAfter > 0) {
             dismissAfter *= 1000;

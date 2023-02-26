@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InvoiceDetails } from '../models/booking.model';
 import { BookingHttpHelper } from '../services/bookingHttpHelper.service';
 import { GlobalVariablesService } from '../services/globalVariables.service';
@@ -9,7 +9,7 @@ import { UIService } from '../services/UI.service';
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss'],
 })
-export class InvoiceComponent implements OnInit, AfterViewInit {
+export class InvoiceComponent implements OnInit {
   invoiceDetails!: InvoiceDetails;
   loading = true;
   failed = false;
@@ -17,7 +17,7 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   constructor(private httpHelper: BookingHttpHelper, private ui: UIService, private globals: GlobalVariablesService) {}
 
   ngOnInit(): void {
-    const bookingId = this.globals.bookingId;
+    const bookingId = this.globals.bookingId || 8;
     this.httpHelper.getBookingById(bookingId).subscribe({
       next: (v) => {
         this.invoiceDetails = v;
@@ -33,16 +33,14 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
         if (discount > 0) {
           this.invoiceTotal = Math.round(this.invoiceTotal  / (discount/100 + 1))
         }
+        window.print();
       },
       error: (e) => {
         this.ui.openSnackbar('Something went wrong, try again later');
         this.failed = true;
+        this.loading = false;
       },
       complete: () => (this.loading = false),
     });
-  }
-
-  ngAfterViewInit(): void {
-         window.print();
   }
 }
