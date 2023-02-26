@@ -9,6 +9,6 @@ export class GuestsHttpHelper {
 
     saveGuestDetails(guestDetails: GuestDetails) {
         const endpoint = this.apiUrl + 'guest'
-        return this.httpClient.post(endpoint, guestDetails)
+        return this.httpClient.post<{ message: string, guestId: number}>(endpoint, guestDetails)
     }
 }

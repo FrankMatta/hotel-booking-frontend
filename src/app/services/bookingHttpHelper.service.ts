@@ -9,13 +9,11 @@ export class BookingHttpHelper {
     constructor(private httpClient: HttpClient){}
 
     createBooking(bookingDetails: BookingDetails) {
-        bookingDetails.guest_id = '15';
         const endpoint = this.apiUrl + 'booking'
-        return this.httpClient.post(endpoint, bookingDetails)
+        return this.httpClient.post<{ message: string, bookingId: number}>(endpoint, bookingDetails)
     }
 
-    getBookingById(){
-        const bookingId = '4';
+    getBookingById(bookingId: number){
         const endpoint = this.apiUrl + 'booking'
         let params = new HttpParams();
         params = params.append('bookingId', bookingId);

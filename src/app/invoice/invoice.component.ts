@@ -1,6 +1,7 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
-import { BookingPer, InvoiceDetails } from '../models/booking.model';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { InvoiceDetails } from '../models/booking.model';
 import { BookingHttpHelper } from '../services/bookingHttpHelper.service';
+import { GlobalVariablesService } from '../services/globalVariables.service';
 import { UIService } from '../services/UI.service';
 
 @Component({
@@ -13,10 +14,11 @@ export class InvoiceComponent implements OnInit, AfterViewInit {
   loading = true;
   failed = false;
   invoiceTotal!: number;
-  constructor(private httpHelper: BookingHttpHelper, private ui: UIService) {}
+  constructor(private httpHelper: BookingHttpHelper, private ui: UIService, private globals: GlobalVariablesService) {}
 
   ngOnInit(): void {
-    this.httpHelper.getBookingById().subscribe({
+    const bookingId = this.globals.bookingId;
+    this.httpHelper.getBookingById(bookingId).subscribe({
       next: (v) => {
         this.invoiceDetails = v;
         this.loading = false;

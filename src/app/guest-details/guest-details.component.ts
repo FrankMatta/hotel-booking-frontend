@@ -8,8 +8,10 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 import countriesList from '../../assets/countries.json';
 import { GuestDetails } from '../models/guest.model';
+import { GlobalVariablesService } from '../services/globalVariables.service';
 import { GuestsHttpHelper } from '../services/guestsHttpHelper.service';
 import { UIService } from '../services/UI.service';
 interface Country {
@@ -124,7 +126,9 @@ export class GuestDetailsComponent {
   constructor(
     private formBuilder: FormBuilder,
     private guestsHttpHelper: GuestsHttpHelper,
-    private ui: UIService
+    private ui: UIService,
+    private globals: GlobalVariablesService,
+    private router: Router
   ) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 100, 0, 1);
@@ -132,7 +136,8 @@ export class GuestDetailsComponent {
   }
 
   onSubmit() {
-    this.loading = true;
+    console.log('ew')
+    // this.loading = true;
 
     const guestDetails: GuestDetails = {
       firstName: this.firstName!.value ?? '',
@@ -149,16 +154,20 @@ export class GuestDetailsComponent {
         dateOfExpiry: this.dateOfExpiry!.value ?? new Date(),
       }
     };
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000)
-    // this.guestsHttpHelper
-    //   .saveGuestDetails(guestDetails)
-    //   .subscribe({
-    //     next: (v) => this.ui.openSnackbar('Guest added successully! Redirecting...'),
-    //     error: (e) => this.ui.openSnackbar("Something went wrong, try again later"),
-    //     complete: () => console.info('complete') 
-    // })
+    this.guestsHttpHelper
+      .saveGuestDetails(guestDetails)
+      .subscribe({
+        next: (v) => {
+          this.guestDetails.disable();
+          this.globals.guestId = v.guestId;
+          this.loading = false;
+          this.ui.openSnackbar('Guest added successully! Redirecting...')
+
+          setTimeout(()=>{this.router.navigate(['/room'])}, 2000)
+        },
+        error: (e) => { this.loading = false; this.ui.openSnackbar("Something went wrong, try again later")},
+        complete: () => console.info('complete') 
+    })
   }
 }
 

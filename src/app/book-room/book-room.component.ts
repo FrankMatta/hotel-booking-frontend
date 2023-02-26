@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BookingDetails, BookingPer } from '../models/booking.model';
 import { BookingHttpHelper } from '../services/bookingHttpHelper.service';
+import { GlobalVariablesService } from '../services/globalVariables.service';
 import { UIService } from '../services/UI.service';
 
 interface GuestSelection {
@@ -26,10 +27,13 @@ export class BookRoomComponent {
     guest: ['adult'],
     count: ['1'],
     description: [null, Validators.required],
-    price: [null, [Validators.required, Validators.min(0), Validators.max(999999)]],
+    price: [
+      null,
+      [Validators.required, Validators.min(0), Validators.max(999999)],
+    ],
     bookStartDate: [null, Validators.required],
     bookEndDate: [null, Validators.required],
-    bookingPer: ['booking', Validators.required]
+    bookingPer: ['booking', Validators.required],
   });
 
   get guest() {
@@ -60,8 +64,13 @@ export class BookRoomComponent {
     return this.bookingDetails.get('bookEndDate');
   }
 
-  constructor(private formBuilder: FormBuilder, private bookingHttpHelper: BookingHttpHelper, private ui: UIService) { }
-  
+  constructor(
+    private formBuilder: FormBuilder,
+    private bookingHttpHelper: BookingHttpHelper,
+    private ui: UIService,
+    private globals: GlobalVariablesService
+  ) {}
+
   toggleDropdowns() {
     this.buttonClicked = true;
   }
@@ -72,7 +81,7 @@ export class BookRoomComponent {
 
   addGuest() {
     if (this.guest!.value === 'adult') {
-      this.bookedGuests.adultsCount +=  +this.count!;
+      this.bookedGuests.adultsCount += +this.count!;
     } else {
       this.bookedGuests.childrenCount += +this.count!;
     }
@@ -86,24 +95,30 @@ export class BookRoomComponent {
   }
 
   onSubmit() {
+    const bookingPer =
+      this.bookingPer!.value === 'person'
+        ? BookingPer.PERSON
+        : BookingPer.BOOKING;
 
-    const bookingPer = this.bookingPer!.value === 'person' ? BookingPer.PERSON : BookingPer.BOOKING
     const bookingDetails: BookingDetails = {
+      guestId: this.globals.guestId,
       description: this.description!.value ?? '',
       price: this.price!.value ?? 0,
       bookStartDate: this.bookStartDate!.value ?? new Date(),
       bookEndDate: this.bookEndDate!.value ?? new Date(),
       bookingPer,
       adultsCount: this.bookedGuests.adultsCount,
-      childrenCount: this.bookedGuests.childrenCount
+      childrenCount: this.bookedGuests.childrenCount,
     };
 
-    this.bookingHttpHelper
-    .createBooking(bookingDetails)
-    .subscribe({
-      next: (v) => this.ui.openSnackbar('Booking created successully!'),
-      error: (e) => this.ui.openSnackbar("Something went wrong, try again later"),
-      complete: () => console.info('complete') 
-  })
+    this.bookingHttpHelper.createBooking(bookingDetails).subscribe({
+      next: (v) => {
+        this.globals.bookingId = v.bookingId;
+        this.ui.openSnackbar('Booking created successully!');
+      },
+      error: (e) =>
+        this.ui.openSnackbar('Something went wrong, try again later'),
+      complete: () => console.info('complete'),
+    });
   }
 }
