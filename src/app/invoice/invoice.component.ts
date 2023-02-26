@@ -33,7 +33,6 @@ export class InvoiceComponent implements OnInit {
         if (discount > 0) {
           this.invoiceTotal = Math.round(this.invoiceTotal  / (discount/100 + 1))
         }
-        window.print();
       },
       error: (e) => {
         this.ui.openSnackbar('Something went wrong, try again later');
@@ -42,5 +41,9 @@ export class InvoiceComponent implements OnInit {
       },
       complete: () => (this.loading = false),
     });
+  }
+
+  printInvoice() {
+    window.print();
   }
 }
