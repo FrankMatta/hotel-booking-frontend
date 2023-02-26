@@ -4,3 +4,57 @@ input.price {
         display: none;
     }
 }
+
+.container {
+    max-width: 1160px;
+    width: 80%;
+    margin: 0 auto;
+
+    & header {
+        margin: 1rem 0;
+    }
+
+    & form {
+        display: flex;
+        flex-direction: column;
+
+        & #peopleSelection {
+            & .extraBtn {
+                display: block;
+                width: 50%;
+                margin: 1rem auto;
+            }
+        }
+
+        & #extras  {
+            display: grid;
+            grid-template-areas: 
+            "description description"
+            "price bookingPer"
+            "duration duration"
+            "submitBtn submitBtn";
+
+            & #description {
+                grid-area: description;
+            }
+
+            & #price {
+                grid-area: price;
+            }
+
+            & #bookingPer {
+                grid-area: bookingPer;
+            }
+
+            & #duration {
+                grid-area: duration;
+            }
+
+            & button[type=submit] {
+                grid-area: submitBtn;
+                width: 50%;
+                margin: 1rem auto;
+            }
+        }
+    }
+}

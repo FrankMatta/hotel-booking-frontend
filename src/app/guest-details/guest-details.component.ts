@@ -161,7 +161,7 @@ export class GuestDetailsComponent {
           this.guestDetails.disable();
           this.globals.guestId = v.guestId;
           this.loading = false;
-          this.ui.openSnackbar('Guest added successully! Redirecting...')
+          this.ui.openSnackbar('Guest added successully! Redirecting...', '', 3)
 
           setTimeout(()=>{this.router.navigate(['/room'])}, 2000)
         },

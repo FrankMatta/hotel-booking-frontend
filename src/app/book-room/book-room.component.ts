@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BookingDetails, BookingPer } from '../models/booking.model';
 import { BookingHttpHelper } from '../services/bookingHttpHelper.service';
 import { GlobalVariablesService } from '../services/globalVariables.service';
@@ -16,7 +17,7 @@ interface GuestSelection {
   styleUrls: ['./book-room.component.scss'],
 })
 export class BookRoomComponent {
-  buttonClicked: boolean = false;
+  showForm: boolean = false;
   extrasClicked: boolean = false;
   bookedGuests: GuestSelection = { adultsCount: 1, childrenCount: 0 };
   date = new Date();
@@ -68,12 +69,9 @@ export class BookRoomComponent {
     private formBuilder: FormBuilder,
     private bookingHttpHelper: BookingHttpHelper,
     private ui: UIService,
-    private globals: GlobalVariablesService
+    private globals: GlobalVariablesService,
+    private router: Router
   ) {}
-
-  toggleDropdowns() {
-    this.buttonClicked = true;
-  }
 
   enableExtras() {
     this.extrasClicked = true;
@@ -113,8 +111,10 @@ export class BookRoomComponent {
 
     this.bookingHttpHelper.createBooking(bookingDetails).subscribe({
       next: (v) => {
+        this.bookingDetails.disable();
         this.globals.bookingId = v.bookingId;
-        this.ui.openSnackbar('Booking created successully!');
+        this.ui.openSnackbar('Booking created successully! Redirecting...','Close', 2);
+        this.router.navigate(['/invoice'])
       },
       error: (e) =>
         this.ui.openSnackbar('Something went wrong, try again later'),

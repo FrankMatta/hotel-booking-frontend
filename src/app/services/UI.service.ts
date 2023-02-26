@@ -5,7 +5,15 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class UIService {
     constructor(private _snackBar: MatSnackBar) {}
 
-    openSnackbar(message = 'Success!', action = 'Close') {
+    openSnackbar(message = 'Success!', action = 'Close', dismissAfter = 0) {
         this._snackBar.open(message, action);
+        console.log('dismissing')
+        
+        if (dismissAfter > 0) {
+            dismissAfter *= 1000;
+            setTimeout(() => {
+                this._snackBar.dismiss()
+            }, dismissAfter)            
+        }
     }
 }

@@ -1,15 +1,17 @@
 <div class="container">
+  <header>
   <h1>Book a room</h1>
   <button
     type="button"
     mat-raised-button
     color="primary"
-    (click)="toggleDropdowns()"
+    (click)="showForm = true;"
   >
     Select room
   </button>
-  <div id="dropdowns" *ngIf="buttonClicked">
-    <form [formGroup]="bookingDetails" (ngSubmit)="onSubmit()">
+</header>
+    <form [formGroup]="bookingDetails" (ngSubmit)="onSubmit()" *ngIf="showForm">
+      <div id="peopleSelection">
       <!-- person select -->
       <mat-form-field appearance="outline">
         <mat-label>Select</mat-label>
@@ -59,6 +61,7 @@
         Remove Child
       </button>
       <button
+        class="extraBtn"
         type="button"
         mat-raised-button
         color="primary"
@@ -67,10 +70,12 @@
       >
         Extra
       </button>
+    </div>
+
       <!-- extras section -->
-      <div class="extras" *ngIf="extrasClicked">
+      <div id="extras" *ngIf="extrasClicked">
         <!-- description -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" id="description">
           <mat-label>Description</mat-label>
           <textarea
             matInput
@@ -83,7 +88,7 @@
         </mat-form-field>
 
         <!-- price -->
-        <mat-form-field appearance="outline" floatLabel="always">
+        <mat-form-field appearance="outline" floatLabel="always" id="price">
           <mat-label>Price</mat-label>
           <input
             matInput
@@ -102,7 +107,7 @@
         </mat-form-field>
 
         <!-- per booking or per person -->
-        <mat-radio-group
+        <mat-radio-group id="bookingPer"
           formControlName="bookingPer"
           aria-label="Select an option"
           value="booking"
@@ -114,7 +119,7 @@
         </mat-radio-group>
 
         <!-- duration -->
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" id="duration">
           <mat-label>Enter a date range</mat-label>
           <mat-date-range-input
             [rangePicker]="picker"
@@ -154,4 +159,3 @@
       </div>
     </form>
   </div>
-</div>
